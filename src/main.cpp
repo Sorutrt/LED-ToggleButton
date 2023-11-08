@@ -1,18 +1,30 @@
 #include <Arduino.h>
+#include <M5Core2.h>
 
-// put function declarations here:
-int myFunction(int, int);
+#define BUTTON  13   //ボタンのONOFF検知
+#define LED_PIN 14   //LEDのONOFFに
+
+bool btnWasPress = false;  //前回ループ時のボタン状態
+bool btnIsPress  = false;  //今回ループ時のボタン状態
+bool ledIsOn     = false;  //現在のLEDの状態
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  M5.begin();
+  pinMode(BUTTON, INPUT);
+  pinMode(LED_PIN, OUTPUT);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
+  btnIsPress = digitalRead(BUTTON);
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+  if (btnIsPress && !(btnWasPress)) {
+    if (!(ledIsOn)) {
+      ledIsOn = true;
+      digitalWrite(LED_PIN, HIGH);
+    } else {
+      ledIsOn = false;
+      digitalWrite(LED_PIN, LOW);
+    }
+  }
+  btnWasPress = btnIsPress;
 }
