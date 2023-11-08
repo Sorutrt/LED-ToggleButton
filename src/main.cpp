@@ -20,11 +20,12 @@ void loop() {
   if (btnIsPress && !(btnWasPress)) {
     if (!(ledIsOn)) {
       ledIsOn = true;
-      digitalWrite(LED_PIN, HIGH);
+      digitalWrite(LED_PIN, LOW);
     } else {
       ledIsOn = false;
-      digitalWrite(LED_PIN, LOW);
+      digitalWrite(LED_PIN, HIGH);
     }
   }
+
   btnWasPress = btnIsPress;
 }
